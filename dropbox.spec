@@ -1,14 +1,14 @@
 Summary:	Sync and backup files between computers
 Name:		dropbox
-Version:	2.0.0
-Release:	1
+Version:	2.6.2
+Release:	2
 License:	Proprietary
 Group:		Daemons
 URL:		http://www.dropbox.com/
 Source0:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86-%{version}.tar.gz
-# Source0-md5:	223824c6a86abd83a8a557b114af2ebf
+# Source0-md5:	06f0370e55e700f7c78f206101550a4b
 Source1:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86_64-%{version}.tar.gz
-# Source1-md5:	33228754f1b3b83cee5044fc399762e4
+# Source1-md5:	130e6f895309d953a7d884538fc97746
 BuildRequires:	tar
 BuildRequires:	unzip
 BuildRequires:	zip
@@ -48,9 +48,6 @@ them from any computer or mobile device using the Dropbox website.
 %{__tar} --strip-components=1 -xzf %{SOURCE1}
 %endif
 
-# no need to package this
-%{__rm} -r distribute-0.6.26-py2.7.egg
-
 # libraries to be taken from system
 # for a in *.so*; do ls -ld /lib/$a /usr/lib/$a; done 2>/dev/null
 %{__rm} libpng12.so.0 libbz2.so.1.0 libpopt.so.0
@@ -78,6 +75,9 @@ cp -a . $RPM_BUILD_ROOT%{_libdir}/%{name}
 # in doc
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/%{name}/{ACKNOWLEDGEMENTS,VERSION,README}
 
+# win binaries
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/%{name}/distribute-*.egg/setuptools/*.exe
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -89,9 +89,37 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/%{name}/*.so*
 %attr(755,root,root) %{_libdir}/%{name}/dropbox
 %attr(755,root,root) %{_libdir}/%{name}/dropboxd
+%{_libdir}/%{name}/*.egg-info
 %{_libdir}/%{name}/library.zip
 
 %dir %{_libdir}/%{name}/images
 %{_libdir}/%{name}/images/emblems
 %{_libdir}/%{name}/images/hicolor
+
+%dir %{_libdir}/%{name}/cffi-*.egg
+%attr(755,root,root) %{_libdir}/%{name}/cffi-*.egg/*.so
+%{_libdir}/%{name}/cffi-*.egg/*.py[co]
+%{_libdir}/%{name}/cffi-*.egg/EGG-INFO
+%dir %{_libdir}/%{name}/cffi-*.egg/cffi
+%{_libdir}/%{name}/cffi-*.egg/cffi/*.py[co]
+
+%dir %{_libdir}/%{name}/distribute-*.egg
+%{_libdir}/%{name}/distribute-*.egg/*.py[co]
+%dir %{_libdir}/%{name}/distribute-*.egg/setuptools
+%{_libdir}/%{name}/distribute-*.egg/setuptools/*.py[co]
+%dir %{_libdir}/%{name}/distribute-*.egg/setuptools/command
+%{_libdir}/%{name}/distribute-*.egg/setuptools/command/*.py[co]
+%dir %{_libdir}/%{name}/distribute-*.egg/setuptools/tests
+%{_libdir}/%{name}/distribute-*.egg/setuptools/tests/*.py[co]
+%{_libdir}/%{name}/distribute-*.egg/EGG-INFO
+
+%dir %{_libdir}/%{name}/dropbox_sqlite_ext-*.egg
+%dir %{_libdir}/%{name}/dropbox_sqlite_ext-*.egg/dropbox_sqlite_ext
+%attr(755,root,root) %{_libdir}/%{name}/dropbox_sqlite_ext-*.egg/dropbox_sqlite_ext/*.so
+%{_libdir}/%{name}/dropbox_sqlite_ext-*.egg/dropbox_sqlite_ext/*.py[co]
+%{_libdir}/%{name}/dropbox_sqlite_ext-*.egg/EGG-INFO
+
+%dir %{_libdir}/%{name}/mock-*.egg
+%{_libdir}/%{name}/mock-*.egg/mock.py[co]
+%{_libdir}/%{name}/mock-*.egg/EGG-INFO
 
