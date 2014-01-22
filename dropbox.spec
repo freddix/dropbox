@@ -1,7 +1,7 @@
 Summary:	Sync and backup files between computers
 Name:		dropbox
 Version:	2.6.2
-Release:	2
+Release:	4
 License:	Proprietary
 Group:		Daemons
 URL:		http://www.dropbox.com/
@@ -18,7 +18,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_noautoprovfiles	%{_libdir}/%{name}
 
 # provided by package itself, but autodeps disabled
-%define		_noautoreq		libcrypto.so libssl.so libwx_.*.so librsync.so.1 libpng12.so
+%define		_noautoreq		libcrypto.so libssl.so libwx_.*.so librsync.so.1
 
 # a zip and executable at the same time
 %define		_noautostrip	.*/library.zip\\|.*/dropbox
@@ -50,7 +50,7 @@ them from any computer or mobile device using the Dropbox website.
 
 # libraries to be taken from system
 # for a in *.so*; do ls -ld /lib/$a /usr/lib/$a; done 2>/dev/null
-%{__rm} libpng12.so.0 libbz2.so.1.0 libpopt.so.0
+%{__rm} libpng12.so.0 libbz2.so.1.0 libpopt.so.0 libffi.so.6
 
 # make into symlink, looks cleaner than hardlink:
 # we can attach executable attrs to binary and leave no attrs for symlink in
