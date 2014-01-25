@@ -1,14 +1,14 @@
 Summary:	Sync and backup files between computers
 Name:		dropbox
-Version:	2.6.2
-Release:	4
+Version:	2.6.5
+Release:	1
 License:	Proprietary
 Group:		Daemons
 URL:		http://www.dropbox.com/
 Source0:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86-%{version}.tar.gz
-# Source0-md5:	06f0370e55e700f7c78f206101550a4b
+# Source0-md5:	61bed489b3fc9ca85424e302eae3dbf5
 Source1:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86_64-%{version}.tar.gz
-# Source1-md5:	130e6f895309d953a7d884538fc97746
+# Source1-md5:	bed8f3dbc40d3f01807b18d987336901
 BuildRequires:	tar
 BuildRequires:	unzip
 BuildRequires:	zip
