@@ -1,14 +1,16 @@
 Summary:	Sync and backup files between computers
 Name:		dropbox
-Version:	2.6.31
+Version:	2.8.3
 Release:	1
 License:	Proprietary
 Group:		Daemons
-URL:		http://www.dropbox.com/
 Source0:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86-%{version}.tar.gz
-# Source0-md5:	a0fa0839f9080558c3424d560654b01b
+# Source0-md5:	057f1d59addc5205abed9fa954e50d0f
 Source1:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86_64-%{version}.tar.gz
-# Source1-md5:	113a5015503558ac88366078abfcc7ba
+# Source1-md5:	2f944c0180a06e5e1a6789c000b845bf
+Source2:	dropbox.service
+Source3:	dropbox@.service
+URL:		http://www.dropbox.com/
 BuildRequires:	tar
 BuildRequires:	unzip
 BuildRequires:	zip
@@ -64,13 +66,17 @@ zip library.zip -d $(cat lib.delete)
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_prefix}/lib/systemd/{system,user}}
+
 ln -s %{_libdir}/%{name}/dropboxd $RPM_BUILD_ROOT%{_bindir}/dropboxd
 
 # install everything else
 install -d $RPM_BUILD_ROOT%{_libdir}/%{name}
 cp -a . $RPM_BUILD_ROOT%{_libdir}/%{name}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/%{name}/lib.delete
+
+install %{SOURCE2} $RPM_BUILD_ROOT%{_prefix}/lib/systemd/user
+install %{SOURCE3} $RPM_BUILD_ROOT%{_prefix}/lib/systemd/system
 
 # in doc
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/%{name}/{ACKNOWLEDGEMENTS,VERSION,README}
@@ -123,3 +129,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/mock-*.egg/mock.py[co]
 %{_libdir}/%{name}/mock-*.egg/EGG-INFO
 
+%{_prefix}/lib/systemd/user/dropbox.service
+%{_prefix}/lib/systemd/system/dropbox@.service
