@@ -1,13 +1,14 @@
+# based on PLD Linux spec git://git.pld-linux.org/packages/dropbox.git
 Summary:	Sync and backup files between computers
 Name:		dropbox
-Version:	2.8.3
-Release:	1
+Version:	2.10.39
+Release:	2
 License:	Proprietary
 Group:		Daemons
 Source0:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86-%{version}.tar.gz
-# Source0-md5:	057f1d59addc5205abed9fa954e50d0f
+# Source0-md5:	d527b1e8e9af9915af2e4a70bca32d9a
 Source1:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86_64-%{version}.tar.gz
-# Source1-md5:	2f944c0180a06e5e1a6789c000b845bf
+# Source1-md5:	11bb1eef8e0869353e3a82d9decf1c08
 Source2:	dropbox.service
 Source3:	dropbox@.service
 URL:		http://www.dropbox.com/
@@ -49,6 +50,7 @@ them from any computer or mobile device using the Dropbox website.
 %ifarch %{x8664}
 %{__tar} --strip-components=1 -xzf %{SOURCE1}
 %endif
+%{__mv} dropbox-lnx.*-%{version}/* .
 
 # libraries to be taken from system
 # for a in *.so*; do ls -ld /lib/$a /usr/lib/$a; done 2>/dev/null
@@ -60,7 +62,7 @@ them from any computer or mobile device using the Dropbox website.
 ln -sf dropbox library.zip
 
 # fun, let's delete non-linux files from archive
-unzip -l library.zip | grep -E 'arch/(mac|win32)|pynt|ui/cocoa|unittest' | awk '{print $NF}' > lib.delete
+unzip -l library.zip | grep -E 'arch/(mac|win32)|ui/cocoa|unittest' | awk '{print $NF}' > lib.delete
 # TODO: also pymac could be cleaned if pymac.constants is not imported
 zip library.zip -d $(cat lib.delete)
 
@@ -118,6 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{name}/distribute-*.egg/setuptools/tests
 %{_libdir}/%{name}/distribute-*.egg/setuptools/tests/*.py[co]
 %{_libdir}/%{name}/distribute-*.egg/EGG-INFO
+%{_libdir}/%{name}/requests-*-py*.egg
 
 %dir %{_libdir}/%{name}/dropbox_sqlite_ext-*.egg
 %dir %{_libdir}/%{name}/dropbox_sqlite_ext-*.egg/dropbox_sqlite_ext
