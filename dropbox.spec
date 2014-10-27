@@ -1,14 +1,14 @@
 # based on PLD Linux spec git://git.pld-linux.org/packages/dropbox.git
 Summary:	Sync and backup files between computers
 Name:		dropbox
-Version:	2.10.39
-Release:	2
+Version:	2.10.41
+Release:	1
 License:	Proprietary
 Group:		Daemons
 Source0:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86-%{version}.tar.gz
-# Source0-md5:	d527b1e8e9af9915af2e4a70bca32d9a
+# Source0-md5:	d67b7d6a0fb42fc9d3068ed765640307
 Source1:	http://dl-web.dropbox.com/u/17/%{name}-lnx.x86_64-%{version}.tar.gz
-# Source1-md5:	11bb1eef8e0869353e3a82d9decf1c08
+# Source1-md5:	a7cdc3d82e7a20d9de4a5b4cf882d64e
 Source2:	dropbox.service
 Source3:	dropbox@.service
 URL:		http://www.dropbox.com/
